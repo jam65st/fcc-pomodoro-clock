@@ -1,25 +1,30 @@
 {
-  "short_name": "React App",
-  "name": "Create React App Sample",
+  "name": "FCC Pomodoro Clock 25x5",
+  "short_name": "Pomodoro 25 x 5",
+  "display": "standalone",
+  "orientation": "portrait",
+  "background_color": "#ffffff",
+  "description": "The Front-end Developer Certification by FCC includes a test to develop a Javascript clock to be used in a simple implementation of the duties load Pomodoro 25 methodology. It is my version submitted",
+  "categories": ["fcc","front-end","test"],
+  "Scope": "/",
+  "start_url": ".",
+  "lang": "en",
   "icons": [
     {
-      "src": "favicon.ico",
+      "src": "icons/favicon.ico",
       "sizes": "64x64 32x32 24x24 16x16",
       "type": "image/x-icon"
     },
     {
-      "src": "logo192.png",
+      "src": "icons/logo192.png",
       "type": "image/png",
       "sizes": "192x192"
     },
     {
-      "src": "logo512.png",
+      "src": "icons/logo512.png",
       "type": "image/png",
       "sizes": "512x512"
     }
   ],
-  "start_url": ".",
-  "display": "standalone",
-  "theme_color": "#000000",
-  "background_color": "#ffffff"
+  "theme_color": "#000000"
 }
