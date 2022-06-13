@@ -245,7 +245,7 @@ export default class Pomodoro {
 	 *
 	 * <strong>User Story #:</strong> TODO: Add related User Story
 	 *
-	 * @type {string}
+	 * @type {function(*): string}
 	 */
 	static SwapPlayingIcons = kind => kind === Pomodoro.STATE_PLAY
 	                                  ? Pomodoro.PAUSE_ICON : Pomodoro.PLAY_ICON;
@@ -256,7 +256,7 @@ export default class Pomodoro {
 	 *
 	 * <strong>User Story #:</strong> TODO: Add related User Story
 	 *
-	 * @type {string}
+	 * @type {function(*): string}
 	 */
 	static SwapResetIcons = kind => kind === Pomodoro.RESET_HARD
 	                                ? Pomodoro.RESET_SIMPLE_ICON : Pomodoro.RESET_HARD_ICON;

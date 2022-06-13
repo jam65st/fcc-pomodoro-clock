@@ -9,6 +9,7 @@ const App = () => {
 			<div>
 				Hello-world { Pomodoro.SESSION_TITLE }
 				{ ExtraData.getProjectTitle() }
+				test: { Pomodoro.BREAK_TITLE }
 			</div>
 	);
 }
