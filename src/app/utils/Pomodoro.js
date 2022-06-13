@@ -11,7 +11,7 @@ export default class Pomodoro {
 	 * <h2>BREAK</h2>
 	 */
 	// eslint-disable-next-line no-unused-vars
-	#break = 1;
+	#break = 0;
 	
 	/**
 	 * <h3>TYPE_BREAK</h3>
