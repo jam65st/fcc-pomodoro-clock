@@ -294,7 +294,7 @@ export default class Pomodoro {
 	 *
 	 * @type {number} Default: 0
 	 */
-	static MINIMUM_TIME = 0;
+	static MINIMUM_TIME = 1;
 	
 	/**
 	 * <h3>MAXIMUM_TIME</h3>
