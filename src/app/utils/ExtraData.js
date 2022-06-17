@@ -32,7 +32,7 @@ export default class ExtraData {
 	static #appExternals = {
 		alarm: {
 			url: 'https://raw.githubusercontent.com/freeCodeCamp/cdn/master/build/testable-projects-fcc/audio/BeepSound.wav',
-			id : 'Beep123'
+			id : 'beep'
 		}
 	}
 	

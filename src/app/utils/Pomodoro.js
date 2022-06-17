@@ -106,7 +106,7 @@ export default class Pomodoro {
 	 *
 	 * @type {number} Default: 25
 	 */
-	static SESSION_TIME = 1;// 25
+	static SESSION_TIME = 25;// 25
 	
 	
 	/**
@@ -322,7 +322,7 @@ export default class Pomodoro {
 	 *
 	 * @type {number}
 	 */
-	static DEFAULT_MAX_CHANGE = 60;
+	static DEFAULT_MAX_CHANGE = 61;
 	
 	/**
 	 * <h3>DEFAULT_MIN_CHANGE</h3>
