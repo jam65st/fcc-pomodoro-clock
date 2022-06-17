@@ -12,7 +12,7 @@ import Pomodoro from "../utils/Pomodoro";
  *         activityTime={ YourActivityTimeVariable }
  *  updateActivityTimes={ YourUpdateActivityTimesFunction }/>
  *
- * @param props {{kind: string, title:string, length:number, updateLength:function }}
+ * @param props {{kind: string, title:string, activityTime:number, updateActivityTimes:function, unlock:boolean }}
  * @returns {JSX.Element}
  * @constructor
  */
@@ -55,8 +55,8 @@ const MomentControl = props => {
 	}
 	
 	// Defining Buttons
-	const _increment = setButton( 'up', time < max ),
-	      _decrement = setButton( 'down', time > min );
+	const _increment = setButton( 'up', time < max && props.unlock ),
+	      _decrement = setButton( 'down', time > min && props.unlock );// props.unlock
 	
 	
 	return (

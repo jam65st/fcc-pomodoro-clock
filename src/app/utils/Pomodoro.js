@@ -106,7 +106,7 @@ export default class Pomodoro {
 	 *
 	 * @type {number} Default: 25
 	 */
-	static SESSION_TIME = 25;// 25
+	static SESSION_TIME = 1;// 25
 	
 	
 	/**
