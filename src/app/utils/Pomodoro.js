@@ -62,7 +62,7 @@ export default class Pomodoro {
 	 * <h2>SESSION</h2>
 	 */
 	// eslint-disable-next-line no-unused-vars
-	#session = 0;
+	#session = 1;
 	
 	/**
 	 * <h3>TYPE_SESSION</h3>
@@ -322,7 +322,7 @@ export default class Pomodoro {
 	 *
 	 * @type {number}
 	 */
-	static DEFAULT_MAX_CHANGE = 61;
+	static DEFAULT_MAX_CHANGE = 60;
 	
 	/**
 	 * <h3>DEFAULT_MIN_CHANGE</h3>
@@ -336,5 +336,16 @@ export default class Pomodoro {
 	 * @type {number}
 	 */
 	static DEFAULT_MIN_CHANGE = 30;
+	
+	/**
+	 * <h2>InitialActivities</h2>
+	 * Object with the initial activities of the app.
+	 *
+	 * @type {{break: number, session: number}}
+	 */
+	static InitialActivities = {
+		break  : Pomodoro.BREAK_TIME,
+		session: Pomodoro.SESSION_TIME
+	}
 	
 }

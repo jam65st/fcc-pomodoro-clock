@@ -1,3 +1,14 @@
+/**
+ * <h1>ExtraData</h1>
+ *
+ * Utility
+ *
+ * I used this class to handle a set of properties,
+ * May be looks redundant, but is a good practices way
+ * to handle and protect data.
+ *
+ * REMEMBER: elements marked with a # are #private
+ */
 export default class ExtraData {
 	/**
 	 * <h3>#appTitle</h3>
