@@ -8,26 +8,29 @@ import Pomodoro  from "../utils/Pomodoro";
  * [ReadONLY]
  *
  * @example
- * <DisplayReader currentActivity={ YourCurrentActivityVariable }
+ * <DisplayReader timeStatus={ YourCurrentTimeStatus }
+ *           currentActivity={ YourCurrentActivityVariable }
  *                     timer={ theCurrentTimeLeftVariable }/>
  *
- * @param props {{timer:number, timeStatus:function}}
+ * @param props {{timeStatus:string, currentActivity:string, timer:number}}
  * @constructor
  */
 const DisplayReader = ( props ) => {
 	const timer  = props.timer;
-	let colorize = timer <= Pomodoro.DEFAULT_MIN_CHANGE
-	               ? { color: '#8b0000' }
-	               : timer <= Pomodoro.DEFAULT_MAX_CHANGE
-	                 ? { color: '#ffbf00' } : {};
+	let colorize = timer === 0
+	               ? { color: '#ff0000' }
+	               : timer <= Pomodoro.DEFAULT_MIN_CHANGE
+		               ? { color: '#bb8800' }
+		               : timer <= Pomodoro.DEFAULT_MAX_CHANGE
+		                 ? { color: '#ffbf00' } : {};
 	
 	return (
-			<main id="display">{/* status={ props.timeStatus } */}
+			<main id="display" status={ props.timeStatus }>
 				<h2 id="timer-label" className="h3">
-					{ props.currentActivity.toLowerCase() }
+					{ props.currentActivity }
 				</h2>
 				<div id="time-left" style={ colorize }>
-					{ TimeUtils.ConvertNumberToMMSS( props.timer, 1000 ) }
+					{ TimeUtils.ConvertNumberToMMSS( timer, 1000 ) }
 				</div>
 			</main>
 	);

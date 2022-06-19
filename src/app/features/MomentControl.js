@@ -9,10 +9,11 @@ import Pomodoro from "../utils/Pomodoro";
  * @example
  * <MomentControl title={ YourTitleVariable }
  *                 kind={ breaks || session }
+ *               unlock={ !isPlaying }
  *         activityTime={ YourActivityTimeVariable }
  *  updateActivityTimes={ YourUpdateActivityTimesFunction }/>
  *
- * @param props {{kind: string, title:string, activityTime:number, updateActivityTimes:function, unlock:boolean }}
+ * @param props {{kind:string, title:string, activityTime:number, updateActivityTimes:function, unlock:boolean }}
  * @returns {JSX.Element}
  * @constructor
  */
@@ -56,7 +57,7 @@ const MomentControl = props => {
 	
 	// Defining Buttons
 	const _increment = setButton( 'up', time < max && props.unlock ),
-	      _decrement = setButton( 'down', time > min && props.unlock );// props.unlock
+	      _decrement = setButton( 'down', time > min && props.unlock );
 	
 	
 	return (

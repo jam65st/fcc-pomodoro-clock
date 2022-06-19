@@ -17,14 +17,14 @@ import DisplayReader   from "./DisplayReader";
  *       updateTimeStatus={ YourUpdateTimeStatusFunction }
  *    updateActivityTimes={ YourUpdateActivityTimesFunction }/>
  *
- * @param props {{lengths:object, resetService:function, timeLabel:string,
- *     timeStatus:string, timer:number, updateTimeStatus:function, updateLength:function }}
+ * @param props {{activityTimes:object, resetService:function, timeLabel:string,
+ *        timeStatus:string, timer:number, unlock:boolean, updateTimeStatus:function,
+ *        updateLength:function }}
  * @constructor
  */
 const Service = ( props ) => {
 	return (
-			<main id="info" aria-label={props.timeStatus}>
-				{/** must require status **/ }
+			<main id="info">
 				<ServiceControls activityTimes={ props.activityTimes }
 				                 unlock={ props.unlock }
 				                 updateActivityTimes={ props.updateActivityTimes } />

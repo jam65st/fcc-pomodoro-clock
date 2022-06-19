@@ -43,9 +43,6 @@ const TimerControl = props => {
 		    method  = isReset ? 'resetService' : 'updateTimeStatus';
 		
 		
-		console.log( '  |- -> click on:[', event.target.id, ']', isReset, action, payload );
-		
-		
 		props[ method ]( action, payload );
 	}
 	

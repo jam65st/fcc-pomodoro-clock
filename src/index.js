@@ -1,6 +1,6 @@
 import React from 'react';
 import { createRoot } from 'react-dom/client';
-//import './index.scss';
+import './styles.scss';
 import App from './app/App';
 // import reportWebVitals from './reportWebVitals';
 
@@ -14,6 +14,13 @@ root.render(
     <App />
   </React.StrictMode>
 );
+
+/**
+ * Remember:
+ * If you are using react 17, you must render with:
+ *
+ * ReactDOM.render(<App />, container);
+ */
 
 // If you want to start measuring performance in your app, pass a function
 // to log results (for example: reportWebVitals(console.log))

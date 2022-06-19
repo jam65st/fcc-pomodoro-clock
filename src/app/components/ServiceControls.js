@@ -9,9 +9,10 @@ import Pomodoro      from "../utils/Pomodoro";
  *
  * @example
  * <ServiceControls activityTimes={ YourActivityTimesVariable }
- *            updateActivityTimes={ YourUpdateActivityTimesFunction }/>
+ *            updateActivityTimes={ YourUpdateActivityTimesFunction }
+ *                         unlock={ Locked when is playing }/>
  *
- * @param props {{activityTimes:object, updateActivityTimes:function}}
+ * @param props {{activityTimes:object, updateActivityTimes:function, unlock:boolean}}
  * @returns {JSX.Element}
  * @constructor
  */
@@ -19,12 +20,12 @@ const ServiceControls = props => {
 	return (
 			<header id="session-controls">
 				<MomentControl kind={ Pomodoro.TYPE_BREAK }
-				               title={ Pomodoro.BREAK_TITLE }
+				               title={ Pomodoro.BREAK_LABEL }
 				               unlock={ props.unlock }
 				               activityTime={ props.activityTimes.break }
 				               updateActivityTimes={ props.updateActivityTimes } />
 				<MomentControl kind={ Pomodoro.TYPE_SESSION }
-				               title={ Pomodoro.SESSION_TITLE }
+				               title={ Pomodoro.SESSION_LABEL }
 				               unlock={ props.unlock }
 				               activityTime={ props.activityTimes.session }
 				               updateActivityTimes={ props.updateActivityTimes } />

@@ -5,7 +5,6 @@ import AppTitle                       from "./components/AppTitle";
 import AuthorInfo                     from "./components/AuthorInfo";
 import BeepAlarm                      from "./components/BeepAlarm";
 import Service                        from "./components/Service";
-//import TimeUtils                      from "./utils/TimeUtils";
 
 const getTime = ( add=0 ) => new Date().getTime() + add;
 
@@ -15,6 +14,7 @@ const App = () => {
 	const [ activityTimes, setActivityTimes ]     = useState( Pomodoro.InitialActivities );
 	const [ currentActivity, setCurrentActivity ] = useState( Pomodoro.TYPE_SESSION );
 	const [ timeStatus, setTimeStatus ]           = useState( Pomodoro.STATE_STOP );
+	const [ activityStatus, setActivityStatus ]   = useState( Pomodoro.STATE_STOP );
 	const [ unlock, setUnlocked ]                 = useState( true );
 	
 	// Handling
@@ -22,30 +22,28 @@ const App = () => {
 		// serialize the activity (from action) with the payload value
 		// into a new times object
 		let times    = Object.assign( {}, activityTimes ),
-		    activity = action.split( '/' )[ 0 ];
+		    activity = action.split( '/' )[ 0 ],
+		    current  = times[ activity ];
+		
+		payload = ( current > Pomodoro.MINIMUM_TIME && current < Pomodoro.MAXIMUM_TIME ) ? payload : 0;
+		
 		// update value from into the object
 		times[ activity ] += payload;
 		
-		console.log( '  [handleActivities]-->', action, payload, JSON.stringify( times ), timer );
-		
 		// updates the activityTimes (from action) with times object
 		setActivityTimes( times );
-		
-		
-		// console.log( currentActivity, activity, currentActivity === activity )
 		
 		// update timer according to the currentActivity
 		if ( currentActivity === activity ) setTimer( times[ activity ] * 60 );
 	}
 	const handlePlaying     = ( action, payload ) => {
-		console.log( '  [handlePlaying]-->', timeStatus, action, payload );
 		// Redirect actions of play | pause buttons and
-		// if ( payload === Pomodoro.STATE_PLAY && action !== Pomodoro.STATE_SWAP ) setTimer( timer -1 );
+		setActivityStatus( action === Pomodoro.STATE_SWAP ? action : payload )
+		
 		if ( payload === Pomodoro.STATE_PLAY ) handleTimeHead( payload );
 		if ( payload === Pomodoro.STATE_STOP ) stopTimeHead( payload );
 	}
 	const handleTimeHead    = ( payload ) => {
-		console.log( '  |-[ PLAY ]:', payload );
 		// Update timeStatus ( playing )
 		setTimeStatus( payload );
 		
@@ -53,13 +51,22 @@ const App = () => {
 		if ( unlock ) setUnlocked( false );
 	}
 	const updateHead        = ( newTimer ) => {
-		if ( newTimer === 0  ) activateBeepAlarm();
+		if ( newTimer === 30  ){
+			// enabling the visual alarm again
+			setActivityStatus( Pomodoro.STATE_PLAY );
+		}
+		if ( newTimer === 0  ){
+			// triggering the alarms (visual and sound)
+			activateBeepAlarm();
+			setActivityStatus( Pomodoro.STATE_SWAP );
+		}
+		// Swap service
 		if ( newTimer === -1 ) swapService();
+		// update timer head
 		if ( newTimer  >  -1 ) setTimer( newTimer );
 	}
 	const swapService       = () => {
-		// console.log( '  |-[ SWAP ]:' );
-		// setTimeStatus( Pomodoro.STATE_STOP );
+		setTimeStatus( Pomodoro.STATE_STOP );
 		
 		let isSession    = currentActivity === Pomodoro.TYPE_SESSION;
 		let nextActivity = isSession
@@ -68,22 +75,19 @@ const App = () => {
 		    nextTimer    = activityTimes[ nextActivity ] * 60;
 		
 		setCurrentActivity( nextActivity );
-		console.log( '  |-[ SWAP ]:', currentActivity, 'to:', nextActivity, ':', nextTimer );
-		// console.log( 0, TimeUtils.ConvertNumberToMMSS( timer,1000) )
-		setTimer( nextTimer );
 		
-		// TODO: ACTIVATE 10 seconds FLASH (set globalState to SWAP)
+		setTimer( nextTimer );
 		
 		handlePlaying( Pomodoro.STATE_SWAP, Pomodoro.STATE_PLAY );
 	}
 	const stopTimeHead      = ( payload ) => {
-		// console.log( '  |-[ STOP ]:', payload );
 		// Update timeStatus ( playing )
 		setTimeStatus( payload );
 		
 		// Lock MomentControl Buttons (disabled)
 		if ( !unlock ) setUnlocked( true );
 		
+		// Deactivate alarm
 		activateBeepAlarm( 'pause' );
 	}
 	const activateBeepAlarm = ( action = 'play' ) => {
@@ -92,12 +96,12 @@ const App = () => {
 		beep.currentTime = 0;
 		beep[ action ]();
 	}
-	const handleReset = ( action, payload ) => { //OK
-		console.log( '  [handleReset]-->', action, payload, timeStatus );
-		setTimeStatus( Pomodoro.STATE_STOP );
+	const handleReset = ( action, payload ) => {
 		activateBeepAlarm( 'pause' );
+		setTimeStatus( Pomodoro.STATE_STOP );
 		setTimer( Pomodoro.DEFAULT_TIMER );
 		setActivityTimes( Pomodoro.InitialActivities );
+		setActivityStatus( Pomodoro.STATE_STOP );
 		setCurrentActivity( Pomodoro.TYPE_SESSION );
 		setUnlocked( true );
 	}
@@ -112,21 +116,13 @@ const App = () => {
 					nextAt - getTime() );
 					return () => clearTimeout( temporized );
 		}
-		/*else if ( timeStatus === Pomodoro.STATE_PLAY && timer === 0 ) {
-			console.log( 'ZERO' );
-			//activateBeepAlarm();
-			//swapService();
-		}*/
 	});
 	
 	// Result
 	return (
-			<section id="clock">
-				{ /** Working OK */ }
+			<section id="clock" status={ activityStatus }>
+				
 				<AppTitle title={ ExtraData.getProjectTitle() } />
-				
-				
-				{ /** BEGIN HERE !!! */ }
 				
 				<Service activityTimes={ activityTimes }
 				         updateActivityTimes={ handleActivities }
@@ -137,12 +133,8 @@ const App = () => {
 				         unlock={ unlock }
 				         timer={ timer } />
 				
-				{ /** END HERE!!! */ }
-				
-				{ /** Working OK */ }
 				<AuthorInfo authorInfo={ ExtraData.getProjectAuthor() } />
 				
-				{ /*TODO: May be could need the timer on the BeepAlarm props */ }
 				<BeepAlarm alarm={ ExtraData.getExternalResource( 'alarm' ) } />
 			</section>
 	);
